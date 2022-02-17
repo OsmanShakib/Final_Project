@@ -1,12 +1,11 @@
 import React from "react";
 import Header from "./components/Header";
-function App() {  
+import SummaryCard from "./components/SummaryCard";
+function App() {
   return (
-  
-     <div> 
-       <Header />
-  </div>
-
+    <div>
+      <Header />
+    </div>
   );
 }
 
