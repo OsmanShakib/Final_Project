@@ -1,13 +1,12 @@
-import React from "react";
+import React, {useState} from "react";
 import Header from "./components/Header";
-function App() {  
-  return (
-  
-     <div> 
-       <Header />
-  </div>
 
-  );
-}
+  export default function App() {
+    return (
+      <div>
+        <Header />
+      </div>
+    )
+  }
+    
 
-export default App;
