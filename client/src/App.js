@@ -4,7 +4,7 @@ import SummaryCard from "./components/SummaryCard";
 import DetailCard from "./components/DetailCard";
 
   export default function App() {
-    const API_KEY = process.env.REACT_APP_API_KEY
+    const API_KEY = process.env.REACT_APP_API_KEY;
 
     const [noData, setNoData] = useState('No Data Yet')
     const [searchTerm, setSearchTerm] = useState('')
@@ -27,24 +27,26 @@ import DetailCard from "./components/DetailCard";
         let how_to_search = (typeof location === 'string') ? `q=${location}` : `lat=${location[0]}&lon=${location[1]}`
 
         try {
-          let res = await fetch(`${process.env.REACT_APP_URL+how_to_search}
-          &appid=${API_KEY}&units=metric&cnt=5&exclude=hourly,minutely`)
+          let res = await fetch(`${process.env.REACT_APP_URL+how_to_search}&appid=${API_KEY}&units=metric&cnt=5&exclude=hourly,minutely`)
           let data = await res.json()
+          
           if(data.cod !== 200) {
             setNoData('Location Not Found')
             return
           }
+          
           setWeatherData(data)
           setCity(`${data.city.name}, ${data.city.country}`)
           setWeatherIcon(`${process.env.REACT_APP_ICON_URL + data.list[0].weather[0]["icon"]}@4x.png`)
         } catch (error) {
-            console.log(error)
+            console.log("Error Encountered: "+error)
         }
     }
 
     const myIP = (location) => {
-      const {latitude, longitude} = location.coords
+      const {latitude, longitude} = location.coords;
       getWeather([latitude, longitude])
+      console.log(location)
     }
     
     return (
@@ -78,7 +80,7 @@ import DetailCard from "./components/DetailCard";
                   </button>
                 <i className="fa fa-map-marker-alt my-auto cursor-pointer p-3 text-white" aria-hidden="true" 
                   onClick={() => {
-                  navigator.geolocation.getCurrentPosition(myIP)
+                    navigator.geolocation.getCurrentPosition(myIP)
                   }}>
                 </i>
               </form>
