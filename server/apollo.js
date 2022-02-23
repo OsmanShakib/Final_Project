@@ -6,16 +6,16 @@ const resolvers = require("./Resolvers/main");
 const {Token} = require("./Authorizations/Token");
 
 const apolloServer = new ApolloServer({
-    typeDefs,
-    resolvers,
-    context: async ({req}) => {
-        const contextObj = {}
-        if (req) {
-            await Token(req);
-            contextObj.reqUserInfo = req.user
-        }
-        return contextObj;
-    },
+  typeDefs,
+  resolvers,
+  context: async ({req}) => {
+    const contextObj = {}
+      if (req) {
+        await Token(req);
+        contextObj.reqUserInfo = req.user
+      }
+      return contextObj;
+  },
 });
 
 module.exports = apolloServer;

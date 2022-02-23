@@ -4,16 +4,16 @@ const {gql} = require("apollo-server-express");
 const userTypeDefs = require("../userTypes");
 
 const typeDefs = gql`
-    scalar Date
-    type Query {
-        _: String
-    }
-    type Mutation {
-        _: String
-    }
+  scalar Date
+  type Query {
+     _: String
+  }
+  type Mutation {
+    _: String
+  }
 `;
 
 module.exports = [
-    typeDefs,
-    userTypeDefs
+  typeDefs,
+  userTypeDefs
 ]
