@@ -7,6 +7,50 @@ import Cookies from 'js-cookie';
 import { useForm } from "react-hook-form";
 
 export default function Login(props) {
+  //Success For SignUp
+  const [message, setMessage] = useState("");
+  const [success, setSuccess] = useState(null);
+  //React Hook Form
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset
+  } = useForm();
+  //Navigation
+  let navigate = useNavigate();
+  //OnSubmit Handler
+  const onSubmit = async (data, e) => {
+    await axios.post("http://localhost:3001/graphql", {
+      query: `
+      mutation login {
+        login(input: {
+          email: "${data.email}"
+          password: "${data.password}"
+        }){
+          message
+          success
+          token
+          expiresIn
+        }
+      }
+      `
+    })
+      .then(res => {
+        if (res.data.errors) {
+          setMessage(res.data.errors[0].message)
+          setSuccess(false)
+        } else {
+          navigate("/")
+          Cookies.set('token', res.data.data.login.token)
+          setSuccess(false)
+        }
+      })
+      .catch(err => {
+        setMessage("Something went wrong!")
+        setSuccess(false)
+      })
+  }
   return (
     <div className="container-box">
       <div className="subContainer">
